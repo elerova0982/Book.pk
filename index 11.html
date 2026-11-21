@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>BOOK.PK | Luxury Car Booking</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --gold: #c9a45c;
+    --gold-light: #e8cf91;
+    --black: #080808;
+    --white: #ffffff;
+    --gray: #999;
+    --surface: #111;
+    --border: rgba(201,164,92,.2);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+    background:var(--black);
+    color:var(--white);
+    font-family:'DM Sans',sans-serif;
+    overflow-x:hidden;
+}
+body.loading { overflow:hidden; }
+a { text-decoration:none; color:inherit; }
+button { font-family:inherit; cursor:pointer; }
+
+/* PRELOADER */
+#preloader {
+    position:fixed;
+    inset:0;
+    background:#050505;
+    z-index:9999;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    transition:opacity .7s ease,visibility .7s ease;
+}
+#preloader.hide { opacity:0; visibility:hidden; }
+.loader-logo {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(42px,9vw,85px);
+    letter-spacing:10px;
+    color:var(--gold-light);
+    animation:logoEntrance 1.2s ease both;
+}
+.loader-line {
+    width:160px;
+    height:2px;
+    background:#292929;
+    margin-top:35px;
+    overflow:hidden;
+}
+.loader-progress {
+    width:0%;
+    height:100%;
+    background:var(--gold);
+    animation:loading 2.1s ease forwards;
+}
+.loader-text {
+    margin-top:17px;
+    font-size:9px;
+    letter-spacing:5px;
+    color:#888;
+    text-transform:uppercase;
+}
+@keyframes logoEntrance {
+    from { opacity:0; transform:translateY(25px); letter-spacing:20px; }
+    to { opacity:1; transform:translateY(0); letter-spacing:10px; }
+}
+@keyframes loading { to { width:100%; } }
+
+/* ANNOUNCEMENT */
+.announcement {
+    height:35px;
+    background:var(--gold);
+    color:#090909;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+}
+.announcement-track {
+    display:flex;
+    white-space:nowrap;
+    animation:ticker 25s linear infinite;
+}
+.announcement-track span {
+    padding:0 35px;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+@keyframes ticker {
+    from { transform:translateX(0); }
+    to { transform:translateX(-50%); }
+}
+
+/* NAVBAR */
+.navbar {
+    height:85px;
+    padding:0 7%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:rgba(8,8,8,.95);
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:1000;
+    backdrop-filter:blur(15px);
+}
+.logo {
+    font-family:'Playfair Display',serif;
+    font-size:29px;
+    font-weight:700;
+    letter-spacing:3px;
+}
+.logo span { color:var(--gold); }
+.nav-links {
+    display:flex;
+    align-items:center;
+    gap:35px;
+}
+.nav-links a {
+    font-size:11px;
+    letter-spacing:1px;
+    color:#c5c5c5;
+    transition:.3s;
+}
+.nav-links a:hover { color:var(--gold); }
+.nav-btn {
+    border:1px solid var(--gold);
+    padding:13px 23px;
+    color:var(--gold);
+    font-size:10px;
+    letter-spacing:2px;
+    background:transparent;
+    transition:.3s;
+}
+.nav-btn:hover { background:var(--gold); color:#080808; }
+.menu-toggle {
+    display:none;
+    font-size:25px;
+    color:var(--gold);
+    background:none;
+    border:none;
+}
+
+/* HERO */
+.hero {
+    min-height:690px;
+    height:calc(100vh - 120px);
+    max-height:850px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+}
+.hero-bg {
+    position:absolute;
+    inset:0;
+    background:
+    linear-gradient(90deg,rgba(0,0,0,.94),rgba(0,0,0,.55),rgba(0,0,0,.15)),
+    linear-gradient(0deg,#080808,transparent 35%),
+    url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2000&q=90') center/cover;
+    transform:scale(1.04);
+    animation:heroZoom 10s ease forwards;
+}
+@keyframes heroZoom { to { transform:scale(1); } }
+.hero-content {
+    position:relative;
+    z-index:2;
+    max-width:850px;
+    padding:0 10%;
+    animation:heroContent 1.2s ease both;
+}
+@keyframes heroContent {
+    from { opacity:0; transform:translateY(40px); }
+    to { opacity:1; transform:translateY(0); }
+}
+.eyebrow {
+    color:var(--gold-light);
+    font-size:10px;
+    letter-spacing:5px;
+    text-transform:uppercase;
+    margin-bottom:28px;
+}
+.hero h1 {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(45px,7vw,91px);
+    font-weight:400;
+    line-height:1.08;
+    margin-bottom:25px;
+}
+.hero h1 span { color:var(--gold-light); font-style:italic; }
+.hero p {
+    color:#c3c3c3;
+    font-size:14px;
+    line-height:2;
+    max-width:480px;
+}
+.hero-buttons {
+    display:flex;
+    gap:15px;
+    margin-top:38px;
+    flex-wrap:wrap;
+}
+.btn-gold {
+    background:var(--gold);
+    color:#080808;
+    padding:17px 30px;
+    border:1px solid var(--gold);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:2px;
+    transition:.3s;
+}
+.btn-gold:hover {
+    background:var(--gold-light);
+    transform:translateY(-3px);
+}
+.btn-outline {
+    padding:17px 30px;
+    border:1px solid rgba(255,255,255,.45);
+    color:white;
+    font-size:10px;
+    letter-spacing:2px;
+    transition:.3s;
+}
+.btn-outline:hover { border-color:var(--gold); color:var(--gold); }
+
+/* COMMON SECTIONS */
+section { padding:110px 8%; }
+.section-heading { text-align:center; margin-bottom:55px; }
+.section-heading small {
+    color:var(--gold);
+    letter-spacing:5px;
+    font-size:10px;
+    text-transform:uppercase;
+}
+.section-heading h2 {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(32px,5vw,53px);
+    font-weight:400;
+    margin-top:17px;
+}
+.section-heading p { color:#888; font-size:12px; margin-top:15px; }
+
+/* FEATURES */
+.features {
+    padding:35px 8%;
+    background:#101010;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+.feature { text-align:center; padding:18px 5px; }
+.feature .symbol { color:var(--gold); font-size:25px; margin-bottom:13px; }
+.feature h3 { font-size:12px; letter-spacing:1px; }
+.feature p { color:#777; font-size:10px; margin-top:8px; }
+
+/* CARS */
+.cars-section { background:#080808; }
+.car-filters {
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:40px;
+}
+.filter-btn {
+    padding:11px 20px;
+    border:1px solid #333;
+    background:transparent;
+    color:#aaa;
+    font-size:10px;
+    letter-spacing:1px;
+    transition:.3s;
+}
+.filter-btn.active,.filter-btn:hover {
+    background:var(--gold);
+    border-color:var(--gold);
+    color:#080808;
+}
+.car-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+.car-card {
+    background:#111;
+    border:1px solid #242424;
+    overflow:hidden;
+    transition:.4s;
+}
+.car-card:hover {
+    transform:translateY(-8px);
+    border-color:var(--gold);
+    box-shadow:0 15px 40px rgba(201,164,92,.08);
+}
+.car-image {
+    height:225px;
+    position:relative;
+    overflow:hidden;
+    background:#181818;
+}
+.car-image img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.7s;
+}
+.car-card:hover .car-image img { transform:scale(1.08); }
+.car-tag {
+    position:absolute;
+    top:15px;
+    left:15px;
+    background:var(--gold);
+    color:#080808;
+    padding:7px 12px;
+    font-size:9px;
+    letter-spacing:1px;
+    font-weight:700;
+}
+.car-details { padding:23px; }
+.car-brand {
+    color:var(--gold);
+    font-size:9px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
+.car-details h3 {
+    font-family:'Playfair Display',serif;
+    font-size:23px;
+    font-weight:400;
+    margin:9px 0 15px;
+}
+.car-specs {
+    display:flex;
+    justify-content:space-between;
+    color:#999;
+    font-size:10px;
+    border-bottom:1px solid #292929;
+    padding-bottom:18px;
+    gap:5px;
+}
+.car-bottom {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:18px;
+    gap:8px;
+}
+.car-price { font-size:15px; color:var(--gold-light); font-weight:600; }
+.car-price small {
+    display:block;
+    font-size:9px;
+    color:#777;
+    margin-top:5px;
+    font-weight:400;
+}
+.book-btn {
+    background:transparent;
+    border:1px solid var(--gold);
+    color:var(--gold);
+    padding:11px 16px;
+    font-size:9px;
+    letter-spacing:1px;
+    transition:.3s;
+}
+.book-btn:hover { background:var(--gold); color:#080808; }
+.no-results {
+    grid-column:1/-1;
+    text-align:center;
+    color:#999;
+    padding:35px;
+    display:none;
+}
+
+/* ABOUT */
+.about-section {
+    background:#111;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+    gap:70px;
+}
+.about-image { position:relative; }
+.about-image img {
+    width:100%;
+    height:430px;
+    object-fit:cover;
+    position:relative;
+    z-index:1;
+}
+.about-image::after {
+    content:"";
+    position:absolute;
+    top:15px;
+    left:15px;
+    right:-15px;
+    bottom:-15px;
+    border:1px solid var(--gold);
+    z-index:0;
+}
+.about-content small { color:var(--gold); letter-spacing:4px; font-size:10px; }
+.about-content h2 {
+    font-family:'Playfair Display',serif;
+    font-weight:400;
+    font-size:clamp(35px,4vw,53px);
+    margin:22px 0;
+    line-height:1.2;
+}
+.about-content h2 span { color:var(--gold); font-style:italic; }
+.about-content p {
+    color:#999;
+    line-height:2;
+    font-size:12px;
+    margin-bottom:28px;
+}
+
+/* STATISTICS */
+.stats-section {
+    background:
+    linear-gradient(rgba(0,0,0,.85),rgba(0,0,0,.9)),
+    url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1800&q=85') center/cover fixed;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+}
+.stats-grid {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:30px;
+    text-align:center;
+}
+.stat-item { padding:30px 10px; }
+.stat-number {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(35px,5vw,58px);
+    color:var(--gold-light);
+}
+.stat-item p {
+    color:#bbb;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-top:12px;
+    text-transform:uppercase;
+}
+
+/* REVIEWS */
+.reviews-section { background:#0b0b0b; overflow:hidden; }
+.review-window { overflow:hidden; max-width:1000px; margin:auto; }
+.review-track { display:flex; transition:transform .65s ease; }
+.review-card { min-width:100%; text-align:center; padding:50px 12%; }
+.stars { color:var(--gold); letter-spacing:6px; font-size:18px; }
+.review-text {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(20px,3vw,30px);
+    line-height:1.7;
+    color:#e7e7e7;
+    margin:30px 0;
+    font-style:italic;
+}
+.reviewer {
+    color:var(--gold);
+    font-size:12px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+.reviewer-role { color:#777; font-size:10px; margin-top:8px; }
+.review-controls {
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:15px;
+}
+.review-controls button {
+    width:40px;
+    height:40px;
+    border:1px solid var(--gold);
+    background:transparent;
+    color:var(--gold);
+    transition:.3s;
+}
+.review-controls button:hover { background:var(--gold); color:black; }
+
+/* BOOKING CTA */
+.booking-section {
+    padding:100px 8%;
+    text-align:center;
+    background:linear-gradient(120deg,#17130c,#080808 60%);
+}
+.booking-section h2 {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(38px,6vw,65px);
+    font-weight:400;
+}
+.booking-section h2 span { color:var(--gold); font-style:italic; }
+.booking-section p {
+    color:#999;
+    font-size:12px;
+    margin:20px auto 30px;
+    line-height:2;
+    max-width:500px;
+}
+
+/* FOOTER */
+footer {
+    background:#050505;
+    padding:70px 8% 25px;
+    border-top:1px solid var(--border);
+}
+.footer-grid {
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:50px;
+    padding-bottom:50px;
+}
+.footer-brand p {
+    color:#888;
+    max-width:320px;
+    font-size:11px;
+    line-height:2;
+    margin-top:20px;
+}
+.footer-column h4 {
+    color:var(--gold);
+    font-size:11px;
+    letter-spacing:2px;
+    margin-bottom:22px;
+}
+.footer-column a {
+    display:block;
+    font-size:11px;
+    color:#888;
+    margin:13px 0;
+    transition:.3s;
+}
+.footer-column a:hover { color:var(--gold); }
+.footer-bottom {
+    padding-top:25px;
+    border-top:1px solid #222;
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    flex-wrap:wrap;
+    color:#666;
+    font-size:10px;
+}
+
+/* BOOKING MODAL */
+.modal {
+    position:fixed;
+    inset:0;
+    z-index:5000;
+    background:rgba(0,0,0,.85);
+    backdrop-filter:blur(8px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+.modal.active { display:flex; }
+.modal-content {
+    background:#111;
+    border:1px solid var(--gold);
+    width:100%;
+    max-width:470px;
+    padding:35px;
+    position:relative;
+    max-height:90vh;
+    overflow-y:auto;
+    animation:modalIn .3s ease;
+}
+@keyframes modalIn {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+}
+.modal-close {
+    position:absolute;
+    top:15px;
+    right:18px;
+    background:none;
+    color:var(--gold);
+    border:none;
+    font-size:25px;
+}
+.modal-content h2 {
+    font-family:'Playfair Display',serif;
+    font-size:32px;
+    font-weight:400;
+    margin-bottom:8px;
+}
+.modal-content > p { font-size:11px; color:#888; margin-bottom:25px; }
+.modal-content label {
+    display:block;
+    font-size:10px;
+    color:var(--gold);
+    margin:15px 0 8px;
+    letter-spacing:1px;
+}
+.modal-content input,.modal-content select {
+    width:100%;
+    background:#080808;
+    border:1px solid #333;
+    color:white;
+    padding:14px;
+    outline:none;
+    font-family:inherit;
+    font-size:12px;
+}
+.modal-content input:focus,.modal-content select:focus { border-color:var(--gold); }
+.modal-submit {
+    width:100%;
+    margin-top:25px;
+    padding:16px;
+    border:none;
+    background:var(--gold);
+    color:black;
+    font-weight:700;
+    letter-spacing:2px;
+    font-size:10px;
+}
+
+/* SCROLL ANIMATION */
+.reveal { opacity:0; transform:translateY(35px); transition:.8s ease; }
+.reveal.show { opacity:1; transform:translateY(0); }
+
+/* RESPONSIVE */
+@media(max-width:1000px) {
+    .car-grid { grid-template-columns:repeat(2,1fr); }
+    .about-section { gap:40px; }
+    .nav-links { gap:18px; }
+}
+@media(max-width:700px) {
+    .navbar { height:72px; padding:0 6%; }
+    .logo { font-size:24px; }
+    .menu-toggle { display:block; }
+    .nav-btn { display:none; }
+    .nav-links {
+        display:none;
+        position:absolute;
+        top:72px;
+        left:0;
+        right:0;
+        background:#0c0c0c;
+        border-bottom:1px solid var(--gold);
+        flex-direction:column;
+        align-items:stretch;
+        padding:20px 7%;
+        gap:0;
+    }
+    .nav-links.open { display:flex; }
+    .nav-links a { padding:16px 0; border-bottom:1px solid #222; }
+    .hero { min-height:650px; height:85vh; }
+    .hero-content { padding:0 7%; }
+    section { padding:80px 6%; }
+    .features { grid-template-columns:repeat(2,1fr); padding:25px 5%; }
+    .car-grid { grid-template-columns:1fr; }
+    .car-image { height:240px; }
+    .about-section { grid-template-columns:1fr; }
+    .about-image img { height:300px; }
+    .stats-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+    .footer-grid { grid-template-columns:1fr 1fr; gap:35px 20px; }
+    .footer-brand { grid-column:1/-1; }
+    .review-card { padding:40px 5%; }
+    .announcement-track span { font-size:9px; }
+}
+@media(max-width:380px) {
+    .hero h1 { font-size:43px; }
+    .footer-grid { grid-template-columns:1fr; }
+    .footer-brand { grid-column:auto; }
+}
+</style>
+</head>
+
+<body class="loading">
+
+<div id="preloader">
+    <div class="loader-logo">BOOK.PK</div>
+    <div class="loader-line"><div class="loader-progress"></div></div>
+    <div class="loader-text">Preparing your experience</div>
+</div>
+
+<div class="announcement">
+    <div class="announcement-track">
+        <span>✦ BOOK.PK — Experience Luxury Beyond Expectations</span>
+        <span>✦ Premium Luxury Car Booking Across Pakistan</span>
+        <span>✦ Your Journey. Your Style. Your Choice.</span>
+        <span>✦ BOOK.PK — Experience Luxury Beyond Expectations</span>
+        <span>✦ Premium Luxury Car Booking Across Pakistan</span>
+        <span>✦ Your Journey. Your Style. Your Choice.</span>
+    </div>
+</div>
+
+<header class="navbar">
+    <a href="#" class="logo">BOOK<span>.PK</span></a>
+
+    <nav class="nav-links" id="navLinks">
+        <a href="#home">HOME</a>
+        <a href="#cars">OUR COLLECTION</a>
+        <a href="#about">ABOUT US</a>
+        <a href="#reviews">REVIEWS</a>
+        <a href="#contact">CONTACT</a>
+    </nav>
+
+    <a href="#cars" class="nav-btn">EXPLORE CARS</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+</header>
+
+<section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <div class="eyebrow">THE ART OF LUXURY TRAVEL</div>
+        <h1>Drive Beyond<br><span>Ordinary.</span></h1>
+        <p>
+            Discover an extraordinary collection of premium automobiles.
+            From timeless elegance to modern performance,
+            your perfect journey begins with BOOK.PK.
+        </p>
+        <div class="hero-buttons">
+            <a href="#cars" class="btn-gold">EXPLORE COLLECTION</a>
+            <a href="#about" class="btn-outline">DISCOVER BOOK.PK</a>
+        </div>
+    </div>
+</section>
+
+<div class="features">
+    <div class="feature">
+        <div class="symbol">✧</div>
+        <h3>PREMIUM COLLECTION</h3>
+        <p>Exceptional luxury automobiles</p>
+    </div>
+    <div class="feature">
+        <div class="symbol">◇</div>
+        <h3>SEAMLESS BOOKING</h3>
+        <p>A simple booking experience</p>
+    </div>
+    <div class="feature">
+        <div class="symbol">♛</div>
+        <h3>ELITE EXPERIENCE</h3>
+        <p>Luxury at every step</p>
+    </div>
+    <div class="feature">
+        <div class="symbol">✦</div>
+        <h3>PERSONALIZED SERVICE</h3>
+        <p>Travel your way</p>
+    </div>
+</div>
+
+<section class="cars-section" id="cars">
+    <div class="section-heading reveal">
+        <small>THE EXCLUSIVE COLLECTION</small>
+        <h2>The World's Finest Automobiles</h2>
+        <p>Discover extraordinary engineering, prestige and timeless automotive excellence.</p>
+    </div>
+
+    <div class="car-filters reveal">
+        <button class="filter-btn active" data-filter="all">ALL COLLECTION</button>
+        <button class="filter-btn" data-filter="mercedes">MERCEDES</button>
+        <button class="filter-btn" data-filter="rolls">ROLLS-ROYCE</button>
+        <button class="filter-btn" data-filter="bentley">BENTLEY</button>
+        <button class="filter-btn" data-filter="bmw">BMW</button>
+        <button class="filter-btn" data-filter="sport">SUPERCARS</button>
+        <button class="filter-btn" data-filter="suv">LUXURY SUVS</button>
+    </div>
+
+    <div class="car-grid" id="carGrid">
+
+        <div class="car-card reveal" data-brand="mercedes">
+            <div class="car-image">
+                <img src="https://cocheslujo.com/img/mercedes-clase-s-800.webp"
+                     onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=900&q=85';"
+                     alt="Mercedes Maybach S Class" loading="lazy">
+                <span class="car-tag">ULTRA LUXURY</span>
+            </div>
+            <div class="car-details">
+                <div class="car-brand">Mercedes-Maybach</div>
+                <h3>S-Class</h3>
+                <div class="car-specs"><span>Automatic</span><span>Luxury Sedan</span><span>4 Seats</span></div>
+                <div class="car-bottom">
+                    <div class="car-price">Contact for price<small>Daily rental</small></div>
+                    <button class="book-btn" data-car="Mercedes-Maybach S-Class">BOOK NOW</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="car-card reveal" data-brand="rolls">
+            <div class="car-image">
+                <img src="https://cocheslujo.com/img/rolls-royce-ghost-rojo-800.webp"
+                     onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1631295868223-63265b40d9e4?auto=format&fit=crop&w=900&q=85';"
+                     alt="Rolls Royce Ghost" loading="lazy">
+                <span class="car-tag">ROYAL EDITION</span>
+            </div>
+            <div class="car-details">
+                <div class="car-brand">Rolls-Royce</div>
+                <h3>Ghost</h3>
+                <div class="car-specs"><span>Automatic</span><span>Luxury Sedan</span><span>5 Seats</span></div>
+                <div class="car-bottom">
+                    <div class="car-price">Contact for price<small>Daily rental</small></div>
+                    <button class="book-btn" data-car="Rolls-Royce Ghost">BOOK NOW</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="car-card reveal" data-brand="bentley">
+            <div class="car-image">
+                <img src="https://cocheslujo.com/img/bentley-continental-gt-800.webp"
+                     onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&w=900&q=85';"
+                     alt="Bentley Continental GT" loading="lazy">
+                <span class="car-tag">GRAND TOURER</span>
+            </div>
+            <div class="car-details">
+                <div class="car-brand">Bentley</div>
+                <h3>Continental GT</h3>
+                <div class="car-specs"><span>Automatic</span><span>Grand Tourer</span><span>4 Seats</span></div>
+                <div class="car-bottom">
+                    <div class="car-price">Contact for price<small>Daily rental</small></div>
+                    <button class="book-btn" data-car="Bentley Continental GT">BOOK NOW</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="car-card reveal" data-brand="sport">
+            <div class="car-image">
+                <img src="https://cocheslujo.com/img/lamborghini-huracan-gris-calle-800.webp"
+                     onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=900&q=85';"
+                     alt="Lamborghini Huracan" loading="lazy">
+                <span class="car-tag">SUPERCAR</span>
+            </div>
+            <div class="car-details">
+                <div class="car-brand">Lamborghini</div>
+                <h3>Huracán</h3>
+                <div class="car-specs"><span>Automatic</span><span>Supercar</span><span>2 Seats</span></div>
+                <div class="car-bottom">
+                    <div class="car-price">Contact for price<small>Daily rental</small></div>
+                    <button class="book-btn" data-car="Lamborghini Huracan">BOOK NOW</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="car-card reveal" data-brand="sport">
+            <div class="car-image">
+                <img src="https://cocheslujo.com/img/ferrari-296-800.webp"
+                     onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&w=900&q=85';"
+                     alt="Ferrari sports car" loading="lazy">
+                <span class="car-tag">ITALIAN EXCELLENCE</span>
+            </div>
+            <div class="car-details">
+                <div class="car-brand">Ferrari</div>
+                <h3>Roma</h3>
+                <div class="car-specs"><span>Automatic</span><span>Grand Tourer</span><span>2+2 Seats</span></div>
+                <div class="car-bottom">
+                    <div class="car-price">Contact for price<small>Daily rental</small></div>
+                    <button class="book-btn" data-car="Ferrari Roma">BOOK NOW</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="car-card reveal" data-brand="sport">
+            <div class="car-image">
+                <img src="https://cocheslujo.com/img/porsche-911-cabrio-blanco-800.webp"
+                     onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=85';"
+                     alt="Porsche 911" loading="lazy">
+                <span class="car-tag">SPORT PERFORMANCE</span>
+            </div>
+            <div class="car-details">
+                <div class="car-brand">Porsche</div>
+                <h3>911 Carrera</h3>
+                <div class="car-specs"><span>Automatic</span><span>Sports Coupe</span><span>4 Seats</span></div>
+                <div class="car-bottom">
+                    <div class="car-price">Contact for price<small>Daily rental</small></div>
+                    <button class="book-btn" data-car="Porsche 911 Carrera">BOOK NOW</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="car-card reveal" data-brand="suv">
+            <div class="car-image">
+                <img src="https://cocheslujo.com/img/range-rover-sport-negro-800.webp"
+                     onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=900&q=85';"
+                     alt="Range Rover Autobiography" loading="lazy">
+                <span class="car-tag">EXECUTIVE SUV</span>
+            </div>
+            <div class="car-details">
+                <div class="car-brand">Range Rover</div>
+                <h3>Autobiography</h3>
+                <div class="car-specs"><span>Automatic</span><span>Luxury SUV</span><span>5 Seats</span></div>
+                <div class="car-bottom">
+                    <div class="car-price">Contact for price<small>Daily rental</small></div>
+                    <button class="book-btn" data-car="Range Rover Autobiography">BOOK NOW</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="car-card reveal" data-brand="bmw">
+            <div class="car-image">
+                <img src="https://cocheslujo.com/img/bmw-i7-800.webp"
+                     onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=900&q=85';"
+                     alt="BMW 7 Series" loading="lazy">
+                <span class="car-tag">EXECUTIVE CLASS</span>
+            </div>
+            <div class="car-details">
+                <div class="car-brand">BMW</div>
+                <h3>7 Series</h3>
+                <div class="car-specs"><span>Automatic</span><span>Executive Sedan</span><span>5 Seats</span></div>
+                <div class="car-bottom">
+                    <div class="car-price">Contact for price<small>Daily rental</small></div>
+                    <button class="book-btn" data-car="BMW 7 Series">BOOK NOW</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="car-card reveal" data-brand="suv">
+            <div class="car-image">
+                <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=900&q=85"
+                     onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=900&q=85';"
+                     alt="Lexus LX luxury SUV" loading="lazy">
+                <span class="car-tag">PREMIUM SUV</span>
+            </div>
+            <div class="car-details">
+                <div class="car-brand">Lexus</div>
+                <h3>LX 600</h3>
+                <div class="car-specs"><span>Automatic</span><span>Luxury SUV</span><span>7 Seats</span></div>
+                <div class="car-bottom">
+                    <div class="car-price">Contact for price<small>Daily rental</small></div>
+                    <button class="book-btn" data-car="Lexus LX 600">BOOK NOW</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="car-card reveal" data-brand="suv">
+            <div class="car-image">
+                <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=900&q=85"
+                     onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=900&q=85';"
+                     alt="Toyota Land Cruiser 300" loading="lazy">
+                <span class="car-tag">LEGENDARY SUV</span>
+            </div>
+            <div class="car-details">
+                <div class="car-brand">Toyota</div>
+                <h3>Land Cruiser 300</h3>
+                <div class="car-specs"><span>Automatic</span><span>Luxury SUV</span><span>7 Seats</span></div>
+                <div class="car-bottom">
+                    <div class="car-price">Contact for price<small>Daily rental</small></div>
+                    <button class="book-btn" data-car="Toyota Land Cruiser 300">BOOK NOW</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="car-card reveal" data-brand="mercedes">
+            <div class="car-image">
+                <img src="https://cocheslujo.com/img/mercedes-clase-g-negro-800.webp"
+                     onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1520031441872-2652dd081a8b?auto=format&fit=crop&w=900&q=85';"
+                     alt="Mercedes AMG G63" loading="lazy">
+                <span class="car-tag">ICONIC PERFORMANCE</span>
+            </div>
+            <div class="car-details">
+                <div class="car-brand">Mercedes-AMG</div>
+                <h3>G 63</h3>
+                <div class="car-specs"><span>Automatic</span><span>Luxury SUV</span><span>5 Seats</span></div>
+                <div class="car-bottom">
+                    <div class="car-price">Contact for price<small>Daily rental</small></div>
+                    <button class="book-btn" data-car="Mercedes AMG G63">BOOK NOW</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="car-card reveal" data-brand="suv">
+            <div class="car-image">
+                <img src="https://images.unsplash.com/photo-1607853554439-0069ec0f29b6?auto=format&fit=crop&w=900&q=85"
+                     onerror="this.onerror=null;this.src='https://cocheslujo.com/img/audi-rs6-800.webp';"
+                     alt="Audi RS Q8" loading="lazy">
+                <span class="car-tag">SPORT LUXURY</span>
+            </div>
+            <div class="car-details">
+                <div class="car-brand">Audi</div>
+                <h3>RS Q8</h3>
+                <div class="car-specs"><span>Automatic</span><span>Performance SUV</span><span>5 Seats</span></div>
+                <div class="car-bottom">
+                    <div class="car-price">Contact for price<small>Daily rental</small></div>
+                    <button class="book-btn" data-car="Audi RS Q8">BOOK NOW</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-results" id="noResults">No vehicles found in this category.</div>
+    </div>
+</section>
+
+<section class="about-section" id="about">
+    <div class="about-image reveal">
+        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1100&q=85"
+             alt="Luxury automotive experience" loading="lazy">
+    </div>
+    <div class="about-content reveal">
+        <small>THE BOOK.PK EXPERIENCE</small>
+        <h2>Luxury Is Not Just A Destination.<br><span>It's The Journey.</span></h2>
+        <p>
+            At BOOK.PK, we believe every journey deserves something exceptional.
+            Our platform brings together a curated selection of premium vehicles
+            for people who appreciate comfort, sophistication and performance.
+        </p>
+        <p>
+            Whether you are planning a special occasion, a business journey
+            or a memorable road trip, discover a vehicle that matches your style.
+        </p>
+        <a href="#cars" class="btn-gold">EXPLORE OUR CARS</a>
+    </div>
+</section>
+
+<section class="stats-section" id="statistics">
+    <div class="section-heading reveal">
+        <small>OUR ACHIEVEMENTS</small>
+        <h2>Numbers That Speak Luxury</h2>
+        <p>Our vision is built around exceptional experiences.</p>
+    </div>
+    <div class="stats-grid">
+        <div class="stat-item reveal"><div class="stat-number" data-target="250000">0</div><p>Happy Customers</p></div>
+        <div class="stat-item reveal"><div class="stat-number" data-target="1200">0</div><p>Luxury Vehicles</p></div>
+        <div class="stat-item reveal"><div class="stat-number" data-target="85">0</div><p>Locations Covered</p></div>
+        <div class="stat-item reveal"><div class="stat-number" data-target="98">0</div><p>Service Commitment</p></div>
+    </div>
+</section>
+
+<section class="reviews-section" id="reviews">
+    <div class="section-heading reveal">
+        <small>CLIENT TESTIMONIALS</small>
+        <h2>Words Of Appreciation</h2>
+        <p>Experiences that define the BOOK.PK vision.</p>
+    </div>
+
+    <div class="review-window reveal">
+        <div class="review-track" id="reviewTrack">
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <div class="review-text">"An elegant experience from beginning to end. The entire booking journey felt smooth, professional and thoughtfully designed."</div>
+                <div class="reviewer">Ahmed Raza</div>
+                <div class="reviewer-role">Premium Client</div>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <div class="review-text">"The collection is impressive, and the experience feels genuinely premium. BOOK.PK is a refreshing concept for luxury travel."</div>
+                <div class="reviewer">Sarah Khan</div>
+                <div class="reviewer-role">Luxury Travel Enthusiast</div>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <div class="review-text">"A sophisticated platform with a beautiful presentation. I especially appreciate the attention to detail throughout the experience."</div>
+                <div class="reviewer">Usman Malik</div>
+                <div class="reviewer-role">Business Client</div>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <div class="review-text">"A beautiful luxury-focused experience. The variety of premium vehicles makes exploring options exciting and convenient."</div>
+                <div class="reviewer">Ayesha Siddiqui</div>
+                <div class="reviewer-role">Premium Client</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="review-controls">
+        <button id="reviewPrev" aria-label="Previous review">←</button>
+        <button id="reviewNext" aria-label="Next review">→</button>
+    </div>
+</section>
+
+<section class="booking-section" id="contact">
+    <div class="reveal">
+        <small style="color:var(--gold);letter-spacing:5px;font-size:10px;">
+            YOUR NEXT JOURNEY STARTS HERE
+        </small>
+        <h2>Ready To Experience <span>Luxury?</span></h2>
+        <p>
+            Discover your perfect vehicle and make every journey
+            a memorable experience with BOOK.PK.
+        </p>
+        <button class="btn-gold" id="mainBookBtn">RESERVE YOUR EXPERIENCE</button>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <a href="#" class="logo">BOOK<span>.PK</span></a>
+            <p>
+                A premium destination for luxury car booking.
+                Discover exceptional automobiles and experience
+                a new standard of sophisticated travel.
+            </p>
+        </div>
+        <div class="footer-column">
+            <h4>QUICK LINKS</h4>
+            <a href="#home">Home</a>
+            <a href="#cars">Our Collection</a>
+            <a href="#about">About Us</a>
+            <a href="#reviews">Customer Reviews</a>
+        </div>
+        <div class="footer-column">
+            <h4>OUR COLLECTION</h4>
+            <a href="#cars">Mercedes-Maybach</a>
+            <a href="#cars">Rolls-Royce</a>
+            <a href="#cars">Bentley</a>
+            <a href="#cars">Ferrari</a>
+            <a href="#cars">Lamborghini</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>© 2026 BOOK.PK. ALL RIGHTS RESERVED.</span>
+        <span>CRAFTED FOR THE LOVE OF LUXURY.</span>
+    </div>
+</footer>
+
+<div class="modal" id="bookingModal">
+    <div class="modal-content">
+        <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+        <h2>Reserve Your Car</h2>
+        <p>Submit your details to begin your booking request.</p>
+
+        <form id="bookingForm">
+            <label for="customerName">YOUR FULL NAME</label>
+            <input type="text" id="customerName" placeholder="Enter your name" required>
+
+            <label for="customerPhone">PHONE NUMBER</label>
+            <input type="tel" id="customerPhone" placeholder="+92 XXX XXXXXXX" required>
+
+            <label for="selectedCar">SELECTED VEHICLE</label>
+            <select id="selectedCar" required>
+                <option value="">Choose a vehicle</option>
+                <option>Mercedes-Maybach S-Class</option>
+                <option>Rolls-Royce Ghost</option>
+                <option>Bentley Continental GT</option>
+                <option>Lamborghini Huracan</option>
+                <option>Ferrari Roma</option>
+                <option>Porsche 911 Carrera</option>
+                <option>Range Rover Autobiography</option>
+                <option>BMW 7 Series</option>
+                <option>Lexus LX 600</option>
+                <option>Toyota Land Cruiser 300</option>
+                <option>Mercedes AMG G63</option>
+                <option>Audi RS Q8</option>
+            </select>
+
+            <label for="bookingDate">PREFERRED DATE</label>
+            <input type="date" id="bookingDate" required>
+
+            <button type="submit" class="modal-submit">SUBMIT BOOKING REQUEST</button>
+        </form>
+    </div>
+</div>
+
+<script>
+/* PRELOADER */
+window.addEventListener("load",function() {
+    setTimeout(() => {
+        document.getElementById("preloader").classList.add("hide");
+        document.body.classList.remove("loading");
+    },2200);
+});
+
+/* MOBILE MENU */
+const menuToggle=document.getElementById("menuToggle");
+const navLinks=document.getElementById("navLinks");
+
+menuToggle.addEventListener("click",() => {
+    navLinks.classList.toggle("open");
+    menuToggle.textContent=navLinks.classList.contains("open")?"✕":"☰";
+});
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click",() => {
+        navLinks.classList.remove("open");
+        menuToggle.textContent="☰";
+    });
+});
+
+/* CAR FILTERS */
+const filterButtons=document.querySelectorAll(".filter-btn");
+const carCards=document.querySelectorAll(".car-card");
+const noResults=document.getElementById("noResults");
+
+filterButtons.forEach(button => {
+    button.addEventListener("click",() => {
+        filterButtons.forEach(btn=>btn.classList.remove("active"));
+        button.classList.add("active");
+
+        const filter=button.dataset.filter;
+        let visible=0;
+
+        carCards.forEach(card => {
+            const matches=filter==="all"||card.dataset.brand===filter;
+            card.style.display=matches?"block":"none";
+            if(matches) visible++;
+        });
+
+        noResults.style.display=visible===0?"block":"none";
+    });
+});
+
+/* BOOKING MODAL */
+const modal=document.getElementById("bookingModal");
+const closeModal=document.getElementById("modalClose");
+const selectedCar=document.getElementById("selectedCar");
+
+function openBooking(car="") {
+    modal.classList.add("active");
+    if(car) selectedCar.value=car;
+}
+
+document.querySelectorAll(".book-btn").forEach(button => {
+    button.addEventListener("click",() => openBooking(button.dataset.car));
+});
+
+document.getElementById("mainBookBtn").addEventListener("click",() => openBooking());
+
+closeModal.addEventListener("click",() => modal.classList.remove("active"));
+
+modal.addEventListener("click",event => {
+    if(event.target===modal) modal.classList.remove("active");
+});
+
+document.addEventListener("keydown",event => {
+    if(event.key==="Escape") modal.classList.remove("active");
+});
+
+/* BOOKING FORM */
+const bookingDate=document.getElementById("bookingDate");
+const today=new Date();
+const localDate=new Date(today.getTime()-today.getTimezoneOffset()*60000)
+    .toISOString().split("T")[0];
+
+bookingDate.min=localDate;
+
+document.getElementById("bookingForm").addEventListener("submit",function(event) {
+    event.preventDefault();
+
+    const name=document.getElementById("customerName").value;
+    const phone=document.getElementById("customerPhone").value;
+    const car=selectedCar.value;
+    const date=bookingDate.value;
+
+    alert(
+        "Thank you, "+name+"!\n\n"+
+        "Your booking request has been prepared.\n\n"+
+        "Vehicle: "+car+"\n"+
+        "Date: "+date+"\n"+
+        "Phone: "+phone+"\n\n"+
+        "This is a demonstration form. No booking has been transmitted."
+    );
+
+    this.reset();
+    modal.classList.remove("active");
+});
+
+/* CUSTOMER REVIEW SLIDER */
+const reviewTrack=document.getElementById("reviewTrack");
+const reviews=document.querySelectorAll(".review-card");
+
+let reviewIndex=0;
+let reviewTimer;
+
+function showReview(index) {
+    reviewIndex=(index+reviews.length)%reviews.length;
+    reviewTrack.style.transform=`translateX(-${reviewIndex*100}%)`;
+}
+
+function startReviewSlider() {
+    clearInterval(reviewTimer);
+    reviewTimer=setInterval(() => showReview(reviewIndex+1),4500);
+}
+
+document.getElementById("reviewNext").addEventListener("click",() => {
+    showReview(reviewIndex+1);
+    startReviewSlider();
+});
+
+document.getElementById("reviewPrev").addEventListener("click",() => {
+    showReview(reviewIndex-1);
+    startReviewSlider();
+});
+
+startReviewSlider();
+
+/* SCROLL REVEAL */
+const revealObserver=new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) {
+            entry.target.classList.add("show");
+            revealObserver.unobserve(entry.target);
+        }
+    });
+},{threshold:0.12});
+
+document.querySelectorAll(".reveal").forEach(element => {
+    revealObserver.observe(element);
+});
+
+/* ANIMATED STATISTICS */
+let statsStarted=false;
+const statsSection=document.getElementById("statistics");
+
+const statsObserver=new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting&&!statsStarted) {
+            statsStarted=true;
+
+            document.querySelectorAll(".stat-number").forEach(counter => {
+                const target=Number(counter.dataset.target);
+                const duration=1800;
+                const startTime=performance.now();
+
+                function updateCounter(currentTime) {
+                    const progress=Math.min((currentTime-startTime)/duration,1);
+                    const eased=1-Math.pow(1-progress,4);
+                    const current=Math.floor(target*eased);
+
+                    if(target===98) {
+                        counter.textContent=current+"%";
+                    } else {
+                        counter.textContent=current.toLocaleString("en-US")+"+";
+                    }
+
+                    if(progress<1) requestAnimationFrame(updateCounter);
+                }
+
+                requestAnimationFrame(updateCounter);
+            });
+
+            statsObserver.disconnect();
+        }
+    });
+},{threshold:0.3});
+
+statsObserver.observe(statsSection);
+</script>
+
+</body>
+</html>
